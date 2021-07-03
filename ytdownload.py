@@ -1,12 +1,14 @@
 from tkinter import *
 from tkinter import filedialog
+from urllib.request import urlopen
 import pytube
+from pytube import YouTube as Youtube
 import webbrowser
 
 class Application:
     def __init__(self, master=None):
         root.title("YT Video Download")
-        root.iconbitmap("D:/Users/nanto/Downloads/youtube_logo_mint_icon_134951.ico")
+        root.iconbitmap("youtube_logo_mint_icon_134951.ico")
         size = 1
         self.fonte = ("Verdana", "12")
 
@@ -57,13 +59,14 @@ class Application:
         self.container10["pady"] = 10
         self.container10.pack()
 
-        def downloadAction(url):
-            url = url
+        def downloadAction(url2):
+            url = str(url2)
             print(url)
-            youtube = pytube.YouTube(url);
+            youtube = Youtube(str(url));
+            print(youtube)
 
             #video =
-            print(youtube.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc())
+            #print(youtube.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(directory.get()));
             youtube.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(directory.get());
 
             #video.download(directory.get());
@@ -71,7 +74,6 @@ class Application:
 
         def downloadClick():
             parts = self.urlentry.get().split(";")
-            print(parts)
             for i in range(len(parts)):
                 downloadAction(parts[i])
 
